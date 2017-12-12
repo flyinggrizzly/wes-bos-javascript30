@@ -16,6 +16,28 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const cities = [];
+
+//Fetch data, then convert the promise to json, then spread each elem of the array into cities
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data))
+
+function findMatches(word_to_match, cities) {
+  return cities.filter(place => {
+    const regex = new RegExp(word_to_match, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
+  });
+}
+
+function displayMatches() {
+  console.log(this.value);
+}
+
+const search_input = document.querySelector('.search');
+const query_suggestions = document.querySelector('.suggestions');
+
+search_input.addEventListener('keyup', displayMatches;
 
 </script>
   </body>
